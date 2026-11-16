@@ -4,6 +4,7 @@ import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import BuilderScreen from './screens/BuilderScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import HomeScreen from './screens/HomeScreen';
 import SetupDetailsScreen from './screens/SetupDetailsScreen';
@@ -63,6 +64,7 @@ const App = () => {
               <FavoritesScreen {...props} favorites={favorites} onToggleFavorite={toggleFavorite} />
             )}
           </Stack.Screen>
+          <Stack.Screen name="Builder" component={BuilderScreen} options={{ title: 'Montador de PC' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
