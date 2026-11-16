@@ -23,28 +23,30 @@ O SetupCraft é um aplicativo mobile, feito com React Native e Expo, que funcion
 1. **Início / Explorar (`Home`)**: marca e slogan, campo de pesquisa, chips de categoria, setups em destaque, lista completa, botão de favoritos com contador e mensagem quando não há resultados.
 2. **Detalhes do setup (`SetupDetails`)**: capa ilustrativa, categoria, descrição, finalidade, características, lista de equipamentos, botão de favoritar e botão de voltar. Se o identificador não existir, mostra uma mensagem de erro com botão para voltar.
 3. **Meus favoritos (`Favorites`)**: lista dos setups salvos (usando o mesmo `SetupCard` da Home), com opção de remover e estado vazio com atalho para o catálogo.
+4. **Montador de PC (`Builder`)**: aberta pelo botão "Montar este setup" da tela de detalhes. Mostra um PC desenhado com componentes nativos, onde cada peça pode ser trocada. A interface atualiza o consumo de energia, a compatibilidade da placa de vídeo com o gabinete e as barras de desempenho (jogos, trabalho e silêncio).
 
 ## Fonte de dados
 
-O catálogo é local, em `data/setups.js` (8 setups, 2 por categoria). Não há API, backend nem login. As capas são ilustrações feitas com componentes do React Native, não fotografias reais, e os equipamentos são descrições genéricas e demonstrativas, sem preços.
+O catálogo é local, em `data/setups.js` (8 setups, 2 por categoria), e as peças do montador ficam em `data/parts.js`. Não há API, backend nem login. As capas são ilustrações feitas com componentes do React Native, não fotografias reais, e os equipamentos e as peças do montador são genéricos e demonstrativos, sem modelos reais nem preços.
 
 ## Onde estão os requisitos
 
 | Requisito | Onde verificar |
 |---|---|
-| Componentes próprios (arquivos separados) | `components/SetupCard.js`, `CategoryChip.js`, `SearchBar.js`, `EmptyState.js`, `FavoriteButton.js`, `EquipmentItem.js`, `SetupCover.js`, `FavoritesBadgeButton.js` |
+| Componentes próprios (arquivos separados) | `components/SetupCard.js`, `CategoryChip.js`, `SearchBar.js`, `EmptyState.js`, `FavoriteButton.js`, `EquipmentItem.js`, `SetupCover.js`, `FavoritesBadgeButton.js`, `SlotTile.js`, `PCCaseView.js`, `PartPicker.js`, `StatBar.js` |
 | Componente reutilizado mais de uma vez | `SetupCard` (Home, destaques e Favoritos); `FavoriteButton` (cartões e detalhes); `EmptyState` (as 3 telas) |
 | Props | `SetupCard({ setup, isFavorite, onPress, onToggleFavorite, compact })` |
 | Callback por props | `onPress`, `onToggleFavorite` (`SetupCard`), `onSelect` (`CategoryChip`), `onChangeText` e `onClear` (`SearchBar`), `onAction` (`EmptyState`) |
-| `useState` | `App.js` (`favorites`) e `screens/HomeScreen.js` (`searchText`, `appliedSearch`, `selectedCategory`) |
+| `useState` | `App.js` (`favorites`), `screens/HomeScreen.js` (`searchText`, `appliedSearch`, `selectedCategory`) e `screens/BuilderScreen.js` (`selecao`, `slotAberto`) |
 | `useEffect` com dependências e limpeza | `screens/HomeScreen.js`: debounce da pesquisa com `setTimeout` e `clearTimeout`, dependência `[searchText]` |
 | Navegação com `createNativeStackNavigator` | `App.js` |
-| Envio de parâmetros | `navigation.navigate('SetupDetails', { setupId })` em `HomeScreen.js` e `FavoritesScreen.js` |
-| Leitura de parâmetros | `route.params` em `screens/SetupDetailsScreen.js` |
-| Título de cabeçalho | `options={{ title: 'Detalhes do setup' }}` e `options={{ title: 'Meus favoritos' }}` em `App.js` |
-| Dados locais | `data/setups.js` |
+| Envio de parâmetros | `navigation.navigate('SetupDetails', { setupId })` em `HomeScreen.js` e `FavoritesScreen.js`; `navigation.navigate('Builder', { setupId })` em `SetupDetailsScreen.js` |
+| Leitura de parâmetros | `route.params` em `screens/SetupDetailsScreen.js` e `screens/BuilderScreen.js` |
+| Título de cabeçalho | `options={{ title: ... }}` em `App.js` (Detalhes do setup, Meus favoritos e Montador de PC) |
+| Dados locais | `data/setups.js` (catálogo) e `data/parts.js` (peças do montador) |
 | `StyleSheet.create` | Todas as telas e componentes |
 | Estados vazios | `EmptyState` na busca sem resultado, nos favoritos vazios e no id inválido |
+| Lógica do montador (cálculos) | `utils/montagem.js` |
 | Atualização imutável do estado | `toggleFavorite` em `App.js` (`filter` e spread) |
 
 ## Como executar
