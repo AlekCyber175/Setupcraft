@@ -8,6 +8,9 @@ export const colors = {
   textoSecundario: '#9CA3AF',
   favorito: '#F472B6',
   borda: '#2A3140',
+  sucesso: '#34D399',
+  aviso: '#FBBF24',
+  erro: '#F87171',
 };
 
 export const spacing = {
