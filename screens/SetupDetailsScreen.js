@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import EmptyState from '../components/EmptyState';
@@ -64,6 +65,15 @@ const SetupDetailsScreen = ({ navigation, route, favorites, onToggleFavorite }) 
         {equipamentos.map((equipamento) => (
           <EquipmentItem key={equipamento.nome} equipamento={equipamento} />
         ))}
+
+        <Pressable
+          onPress={() => navigation.navigate('Builder', { setupId: setup.id })}
+          accessibilityRole="button"
+          style={({ pressed }) => [styles.builderButton, pressed && styles.pressed]}
+        >
+          <Ionicons name="construct-outline" size={20} color={colors.destaqueSecundario} />
+          <Text style={styles.builderLabel}>Montar este setup</Text>
+        </Pressable>
 
         <Pressable
           onPress={() => navigation.goBack()}
@@ -142,8 +152,24 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textoPrincipal,
   },
-  backButton: {
+  builderButton: {
     marginTop: 24,
+    minHeight: 48,
+    borderRadius: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: colors.destaqueSecundario,
+  },
+  builderLabel: {
+    marginLeft: 8,
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.destaqueSecundario,
+  },
+  backButton: {
+    marginTop: 12,
     minHeight: 48,
     borderRadius: 24,
     alignItems: 'center',
