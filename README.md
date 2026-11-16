@@ -1,4 +1,4 @@
-# SetupCraft
+﻿# SetupCraft
 
 > Inspire-se. Monte. Evolua.
 
@@ -75,7 +75,7 @@ Depois, copie para a pasta criada: `App.js`, `components/`, `screens/`, `data/`,
 
 ## Vídeo demonstrativo
 
-O vídeo (até 30 segundos, MP4) deve ser adicionado em `demo/demo.mp4`. Ainda não foi gravado.
+O vídeo (até 30 segundos, MP4) deve ser adicionado em `demo/demo.mp4`. O vídeo de demonstração está disponível em: demo/demo.mp4.
 
 ## Publicação no GitHub
 
@@ -87,3 +87,5 @@ git branch -M main
 git remote add origin https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git
 git push -u origin main
 ```
+
+
